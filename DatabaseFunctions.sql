@@ -971,3 +971,19 @@ begin
 end;
 $procedure$
 ;
+
+
+
+CREATE OR REPLACE VIEW currentcustomers
+AS SELECT c.id,
+    c.firstname,
+    c.surname,
+    c.username,
+    cs.date_of_origin,
+    s.numberofmonths,
+    st.tiername
+   FROM customer c
+     JOIN cust_sub cs ON c.id = cs.cust_id
+     JOIN sub s ON s.id = cs.sub_id
+     JOIN sub_tier st ON s.tier_id = st.id
+  WHERE cs.active = true;
